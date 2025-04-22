@@ -1,5 +1,9 @@
-"""The purpose of this module is to import and process datasets from various streaming services.
-It creates a 3D list of media entries and a dictionary indexed by title for easy access."""
+"""
+data.py
+
+The purpose of this module is to import and process datasets from various streaming services.
+It creates a 3D list of media entries and a dictionary indexed by title for easy access.
+"""
 
 import csv
 from collections import OrderedDict
@@ -57,9 +61,10 @@ class Data:
 
 class Media:
     """
-    A class to represent a single movie or show entry from the dataset 
+    A class to represent a single movie or show entry from the dataset
     and all of its associated information.
     """
+
     def __init__(self, entry):
         _fill_empty_fields(entry)
         self.title = entry[TITLE]
@@ -78,13 +83,14 @@ class Media:
 
 
 def import_all_datasets_to_list(
-    netflix_dataset="Data/netflix_titles.csv",
-    amazon_dataset="Data/amazon_prime_titles.csv",
-    disney_dataset="Data/disney_plus_titles.csv",
-    hulu_dataset="Data/hulu_titles.csv",
+    netflix_dataset="Dummy_data/dummy_netflix.csv",
+    amazon_dataset="Dummy_data/dummy_amazon.csv",
+    disney_dataset="Dummy_data/dummy_disney.csv",
+    hulu_dataset="Dummy_data/dummy_hulu.csv",
 ):
     """
-    Imports datasets from various streaming services and returns a list containing the data of all 4.
+    Imports datasets from various streaming services and returns a list containing the data of 
+    all 4.
     """
     netflix_data = []
     amazon_prime_data = []
@@ -169,7 +175,7 @@ def main():
     """
     Main function to test the Data class and its methods.
     """
-    #data = Data()
+    # data = Data()
     # data.print_media_list()
 
 
