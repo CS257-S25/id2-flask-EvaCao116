@@ -1,3 +1,8 @@
+"""
+This is a Flask app for filtering streaming media entries
+based on actor names. The app provides routes to filter media by actor and 
+return the filtered results in HTML format.
+"""
 from flask import Flask
 from ProductionCode.filter import Filter
 from ProductionCode.data import Data
@@ -9,6 +14,9 @@ data = Data()
 
 @app.route("/")
 def home():
+    """
+    Home route that provides instructions on how to use the API.
+    """
     return (
         "<h1>Welcome to the Streaming Media Filter API</h1>"
         "<p>To filter by actor, go to <code>/actor/&lt;actor_name&gt;</code></p>"
@@ -17,6 +25,9 @@ def home():
 
 @app.route('/actor/<actor_name>')
 def filter_by_actor(actor_name):
+    """
+    Filters media entries by actor name and formats the results as an HTML list.
+    """
     results = get_filtered_by_actor(actor_name)
     return format_media_results_as_html(results, actor_name)
 
