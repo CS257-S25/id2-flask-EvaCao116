@@ -18,7 +18,7 @@ def home():
     Home route that provides instructions on how to use the API.
     """
     return (
-        "<h1>Welcome to the Streaming Media Filter API</h1>"
+        "<h1>Welcome to Streaming Media</h1>"
         "<p>To filter by actor, go to <code>/actor/&lt;actor_name&gt;</code></p>"
         "<p>Example: <a href='/actor/Brendan Gleeson'>/actor/Brendan Gleeson</a></p>"
     )
