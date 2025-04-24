@@ -40,7 +40,7 @@ class FlaskAppTestCase(unittest.TestCase):
         """Standard: Test filtering by a valid genre returns expected results."""
         response = self.app.get('/genre/Crime')
         self.assertIn(b'Silent Night', response.data)
-    
+
     def test_invalid_genre(self):
         """Edge case: genre not in dataset should return specific message."""
         response = self.app.get('/genre/Nonexistent')
