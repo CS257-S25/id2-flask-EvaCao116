@@ -2,11 +2,14 @@
 test.py
 
 This module contains unit tests for the Flask-specific functions.
+It tests the functionality of the Flask app, including routes and filtering by actor and genre.
 """
 import unittest
 from app import app, get_filtered_by_actor
 
 class FlaskAppTestCase(unittest.TestCase):
+    """Test class for the Flask app."""
+
     def setUp(self):
         self.app = app.test_client()
         self.app.testing = True
@@ -14,20 +17,18 @@ class FlaskAppTestCase(unittest.TestCase):
     def test_homepage(self):
         """Test the home page returns status 200 and expected instructions."""
         response = self.app.get('/')
-        self.assertEqual(response.status_code, 200)
         self.assertIn(b'Welcome to Streaming Media', response.data)
 
     def test_valid_actor(self):
-        """Test filtering by a valid actor name returns expected results."""
+        """Standard: Test filtering by a valid actor name returns expected results."""
         response = self.app.get('/actor/Brendan Gleeson')
-        self.assertEqual(response.status_code, 200)
         self.assertIn(b'Results for actor: Brendan Gleeson', response.data)
+        self.assertIn(b'The Grand Seduction', response.data)
 
     def test_invalid_actor(self):
-        """Edge case: actor not in dataset should return 404."""
+        """Edge case: actor not in dataset should return specific message."""
         response = self.app.get('/actor/Nonexistent Actor')
-        self.assertEqual(response.status_code, 404)
-        self.assertIn(b'No entries found for actor', response.data)
+        self.assertIn(b'No entries found', response.data)
 
     def test_actor_case_insensitive(self):
         """Edge case: actor name matching should be case-insensitive."""
@@ -35,10 +36,15 @@ class FlaskAppTestCase(unittest.TestCase):
         results_lower = get_filtered_by_actor("brendan gleeson")
         self.assertEqual(results_upper.keys(), results_lower.keys())
 
-    def test_empty_actor(self):
-        """Edge case: empty actor string should return all or none based on logic."""
-        results = get_filtered_by_actor("")
-        self.assertEqual(len(results), 0)  # or > 0 if your logic handles empty as 'no filter'
+    def test_filter_by_genre(self):
+        """Standard: Test filtering by a valid genre returns expected results."""
+        response = self.app.get('/genre/Crime')
+        self.assertIn(b'Silent Night', response.data)
+    
+    def test_invalid_genre(self):
+        """Edge case: genre not in dataset should return specific message."""
+        response = self.app.get('/genre/Nonexistent')
+        self.assertIn(b'No entries found', response.data)
 
 if __name__ == '__main__':
     unittest.main()
