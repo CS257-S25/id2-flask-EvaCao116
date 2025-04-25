@@ -1,7 +1,8 @@
 """
+app.py
+
 This is a Flask app for filtering streaming media entries
-based on actor names. The app provides routes to filter media by actor and 
-return the filtered results in HTML format.
+based on actor names and movie genres. 
 """
 from flask import Flask
 from ProductionCode.filter import Filter
@@ -9,13 +10,12 @@ from ProductionCode.data import Data
 
 app = Flask(__name__)
 
-# Create a single Data instance globally
 data = Data()
 
 @app.route("/")
 def home():
     """
-    Home route that provides instructions on how to use the API.
+    Home route that provides instructions on how to use the website
     """
     return (
         "<h1>Welcome to Streaming Media</h1>"
@@ -36,7 +36,7 @@ def filter_by_actor(actor_name):
 @app.route('/genre/<genre_name>')
 def filter_by_genre(genre_name):
     """
-    Filters media entries by genre and formats the results.
+    Filters media entries by genre and formats the results
     """
     results = get_filtered_by_genre(genre_name)
     return format_media_results(results, f"genre: {genre_name}")
@@ -44,7 +44,7 @@ def filter_by_genre(genre_name):
 
 def get_filtered_by_actor(actor_name):
     """
-    Uses the Filter class to filter media entries by actor name.
+    Uses the Filter class to filter media entries by actor name
     """
     f = Filter(data)
     f.filter_by_actor(actor_name)
@@ -52,7 +52,7 @@ def get_filtered_by_actor(actor_name):
 
 def get_filtered_by_genre(genre_name):
     """
-    Uses the Filter class to filter media entries by genre.
+    Uses the Filter class to filter media entries by genre
     """
     f = Filter(data)
     f.filter_by_category(genre_name)
@@ -60,7 +60,7 @@ def get_filtered_by_genre(genre_name):
 
 def format_media_results(results, label):
     """
-    Formats a dictionary of media entries as text string.
+    Formats a dictionary of media entries as text string
     """
     if not results:
         return f"No entries found for {label}"
