@@ -15,7 +15,7 @@ class FlaskAppTestCase(unittest.TestCase):
         self.app.testing = True
 
     def test_homepage(self):
-        """Test the home page returns status 200 and expected instructions."""
+        """Test the home page returns expected instructions."""
         response = self.app.get('/')
         self.assertIn(b'Welcome to Streaming Media', response.data)
 
